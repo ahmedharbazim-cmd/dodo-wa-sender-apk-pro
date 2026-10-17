@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- no INTERNET permission on purpose: the app never needs the network -->
+
+    <!-- needed on Android 11+ to see / open the WhatsApp apps -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+    </queries>
+
+    <application
+        android:label="DoDo WA Sender"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- drives the native WhatsApp app (finds and taps the Send button) -->
+        <service
+            android:name=".WaService"
+            android:exported="true"
+            android:label="DoDo WA Sender"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- hands the attached file to WhatsApp when sending media -->
+        <provider
+            android:name=".ShareProvider"
+            android:authorities="com.dodo.wasender.share"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+    </application>
+</manifest>

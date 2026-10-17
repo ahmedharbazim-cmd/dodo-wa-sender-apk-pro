@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_description">يسمح للتطبيق بالضغط على زر الإرسال داخل تطبيق واتساب فقط، لإرسال رسائل القائمة اللي إنت بتحددها. مفيش قراءة لأي تطبيق تاني.</string>
+</resources>
